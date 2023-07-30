@@ -25,6 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
+
 			getUsers: async () => {
 					// 1. Verifico si tengo los usersLocal en el localStorage
 					//   1.1. Si están, actualizo "estado" mediante setUsers() desde los datos del "localStorage"
@@ -63,18 +64,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("error: ", response.status, response.statusText);
 				  }
 				}
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			},			
+			getCharacters: async () => {
+				// 1. Verifico si tengo los usersLocal en el localStorage
+				//   1.1. Si están, actualizo "estado" mediante setUsers() desde los datos del "localStorage"
+				//   1.2. Sino no están, realizo el fetch, guardo datos en el "estado" y en el "localStore"
+				//     1.2.1. Realizo el fetch()
+				//     1.2.2. Almaceno data en el "estado"
+				//     1.2.3. Almaceno data en "localStorage"
+				if (localStorage.getItem("charactersLocal") === null) {  // 1.
+				  const response = await fetch("https://www.swapi.tech/api/people/")  // 1.2.1
+				  if (response.ok) {
+					const data = await response.json()
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
+					localStorage.setItem('charactersLocal', JSON.stringify(data))  // 1.2.3
+				  } else {
+					console.log("error: ", response.status, response.statusText);
+				  }
+				}
+				
 				//reset the global store
 				setStore({ demo: demo });
 			}

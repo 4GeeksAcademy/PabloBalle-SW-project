@@ -11,6 +11,7 @@ const injectContext = PassedComponent => {
 		//this will be passed as the contenxt value
 		const [state, setState] = useState(
 			getState({
+				
 				getStore: () => state.store,
 				getActions: () => state.actions,
 				setStore: updatedStore =>
@@ -31,6 +32,7 @@ const injectContext = PassedComponent => {
 			 * state.actions.loadSomeData(); <---- calling this function from the flux.js actions
 			 *
 			 **/
+			state.actions.getCharacters();
 			state.actions.getUsers();
 			state.actions.getPosts();
 		}, []);

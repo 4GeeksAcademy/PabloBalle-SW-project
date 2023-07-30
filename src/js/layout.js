@@ -8,6 +8,7 @@ import { Single } from "./views/single";
 import { Users } from "./views/Users.jsx";
 import { UserDetails } from "./views/UserDetails.jsx";
 import { Posts } from "./views/Posts.jsx";
+import { Characters } from "./views/Characters.jsx";
 
 import injectContext from "./store/appContext";
 
@@ -33,6 +34,7 @@ const Layout = () => {
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
+						<Route path="/characters" element={<Characters />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>

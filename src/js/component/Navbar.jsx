@@ -13,6 +13,9 @@ export const Navbar = () => {
 			<Link to="/posts">
 				Posts
 			</Link>
+			<Link to="/characters">
+				char
+			</Link>
 
 		</nav>
 	);
