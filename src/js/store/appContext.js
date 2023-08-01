@@ -27,8 +27,6 @@ const injectContext = PassedComponent => {
 
 			useEffect(() => {
 				state.actions.getCharacters();
-				state.actions.getUsers();
-				state.actions.getPosts();
 				state.actions.getPlanets(); // Corregir el nombre de la acción: getPlanets() en lugar de getPanets()
 				state.actions.getStarships();
 				state.actions.addCardToLikes(); // Corregir el nombre de la acción: getStarships() en lugar de getStarshios()
