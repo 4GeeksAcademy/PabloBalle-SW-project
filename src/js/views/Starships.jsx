@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "../component/Spinner.jsx";
 import { Link } from "react-router-dom"; // Agrega esta línea
+import { LikesBtn } from "../component/LikesBtn.jsx";
 
 export const Starships = () => {
     const [starships, setStarships] = useState(JSON.parse(localStorage.getItem("starshipsLocal")));
@@ -30,6 +31,7 @@ export const Starships = () => {
                 <Link to={`/starships/${starship.uid}`} className="btn btn-primary">
                   More information
                 </Link>
+                <LikesBtn cardName={starship.name} />
               </div>
               
             </div>

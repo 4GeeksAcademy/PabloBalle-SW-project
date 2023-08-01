@@ -117,12 +117,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				},
 
 				addCardToLikes: cardName => {
+					if (!cardName || cardName.trim() === "") {
+					  // Si el nombre de la tarjeta está vacío o es nulo, no hacemos nada
+					  return;
+					}
+					
 					const store = getStore();
-					
-					  const updatedLikes = [...store.likes, cardName];
-					  console.log("Updated Likes:", updatedLikes);
-					  setStore({ likes: updatedLikes });
-					
+					const updatedLikes = [...store.likes, cardName];
+					console.log("Updated Likes:", updatedLikes);
+					setStore({ likes: updatedLikes });
+				  },
+
+				  removeCardFromLikes: cardName => {
+					const store = getStore();
+					const updatedLikes = store.likes.filter(name => name !== cardName);
+					setStore({ likes: updatedLikes });
 				  },
 			}
 		};

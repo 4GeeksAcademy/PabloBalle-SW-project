@@ -1,12 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../store/appContext"; // Asegúrate de que la ruta sea correcta
-
-// Resto del código del componente Navbar
-
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-  const { store,actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
+
+  const handleRemoveFromLikes = (cardName) => {
+    actions.removeCardFromLikes(cardName);
+  };
+
+  const handleDropdownItemClick = (event) => {
+    event.stopPropagation(); // Evita que el evento se propague al elemento padre (dropdown)
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,28 +41,43 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Likes <span className="badge bg-secondary">{store.likes.length}</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                {store.likes.map((cardName, index) => (
-                  <li key={index}>
-                    <span className="dropdown-item-text">{cardName}</span>
-                  </li>
-                ))}
-              </ul>
-            </li>
+            {store.likes.length > 0 && ( // Verifica si store.likes tiene elementos antes de renderizar el dropdown
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Likes <span className="badge bg-secondary">{store.likes.length}</span>
+                </a>
+                <ul
+                  className="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="navbarDropdown"
+                  onClick={handleDropdownItemClick}
+                >
+                  {store.likes.map((cardName, index) => (
+                    <li key={index}>
+                      <span className="dropdown-item-text">{cardName}</span>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleRemoveFromLikes(cardName)}
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            )}
           </ul>
         </div>
       </div>
     </nav>
   );
 };
+
+
+

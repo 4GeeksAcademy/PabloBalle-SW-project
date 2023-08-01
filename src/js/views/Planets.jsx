@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "../component/Spinner.jsx";
 import { Link } from "react-router-dom"; // Agrega esta línea
+import { LikesBtn } from "../component/LikesBtn.jsx";
 
 export const Planets = () => {
   const [planets, setPlanets] = useState(JSON.parse(localStorage.getItem("planetsLocal")));
@@ -28,6 +29,7 @@ export const Planets = () => {
               <Link to={`/planets/${planet.uid}`} className="btn btn-primary">
                 More information
               </Link>
+              <LikesBtn cardName={planet.name} />
             </div>
           </div>
         ))
