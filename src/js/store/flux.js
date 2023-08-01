@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			favorites : []
+			favorites : [],
+			likes: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -81,13 +82,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  } else {
 					console.log("error: ", response.status, response.statusText);
 				  }
-				}
+				}},
 				
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
-};
+				getPlanets: async () => {
+					if (localStorage.getItem("planetsLocal") === null) {
+						try {
+							const response = await fetch("https://www.swapi.tech/api/planets/");
+							if (response.ok) {
+								const data = await response.json();
+								localStorage.setItem("planetsLocal", JSON.stringify(data));
+							} else {
+								console.log("Error fetching planets:", response.status, response.statusText);
+							}
+						} catch (error) {
+							console.log("Error fetching planets:", error);
+						}
+					}
+				},
+	
+				getStarships: async () => {
+					if (localStorage.getItem("starshipsLocal") === null) {
+						try {
+							const response = await fetch("https://www.swapi.tech/api/starships/");
+							if (response.ok) {
+								const data = await response.json();
+								localStorage.setItem("starshipsLocal", JSON.stringify(data));
+							} else {
+								console.log("Error fetching starships:", response.status, response.statusText);
+							}
+						} catch (error) {
+							console.log("Error fetching starships:", error);
+						}
+					}
+				},
 
-export default getState;
+				addCardToLikes: cardName => {
+					const store = getStore();
+					
+					  const updatedLikes = [...store.likes, cardName];
+					  console.log("Updated Likes:", updatedLikes);
+					  setStore({ likes: updatedLikes });
+					
+				  },
+			}
+		};
+	};
+	
+	export default getState;
