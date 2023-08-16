@@ -23,7 +23,6 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Routes>
-						{/* meter un home */}
 						<Route path="/" element={<Characters />} /> 
 						<Route path="/characters" element={<Characters />} />
 						<Route path="/characters/:characterId" element={<CharactersDetails />} />

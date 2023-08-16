@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { SearchBar } from "./SearchBar.jsx";
+
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -12,13 +12,9 @@ export const Navbar = () => {
 
   const handleDropdownItemClick = (event) => {
     event.stopPropagation(); // Evita que el evento se propague al elemento padre (dropdown)
-  };
-  const characters = [
-    { id: 1, name: "Luke Skywalker" },
-    { id: 2, name: "Darth Vader" },
-    { id: 3, name: "Princess Leia" },
-    
-  ];
+  }
+
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -34,9 +30,6 @@ export const Navbar = () => {
         <Link className="navbar-brand" to="/starships">
           Starships
         </Link>
-        <li className="nav-item">
-          <SearchBar data={characters} />
-        </li>
         <button
           className="navbar-toggler"
           type="button"
